@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row pt-2 text-center">
+        <div class="col">
+            <h2>{{ n.title }}</h2>
+            {% if n.image.url is not None %}
+            <img src="{{ n.image.url }}" height="50"><br/>
+            Image Source : {{ n.img_source }}
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            Editor Name : <a href="{% url 'seprofile' n.editor_detail.id %}">{{ n.editor_detail.fullname }}</a>
+            Published Date : {{ n.ppub_date }}
+        </div>
+    </div>
+    <div class="row text-justify">
+        <div class="col">
+            {{ n.body }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 alert alert-primary">
+            <a href="{% url 'snlike' n.id %}">
+                <button class="btn btn-success">
+                    {% if con %}
+                    Liked
+                    {% else %}
+                    Like
+                    {% endif %}
+                </button>
+            </a>
+            {{ n.like_no }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 border border-primary">
+            <form method="POST" action="{% url 'sncom' n.id %}">
+                {% csrf_token %}
+                <input type="text" name="c" class="form-control" required>
+                <button type="submit" class="btn btn-primary">Comment</button>
+            </form>
+            <hr>
+            {% for nc, ccl in data %}
+            <b>{{ nc.surfer_detail.fullname }}</b><br/>
+            {{ nc.comment }} <br/>
+            <a href="{% url 'sreport' nc.id 'nc' %}">Report</a>
+            <div class="container">
+                <form method="POST" action="{% url 'sccom' nc.id %}">
+                    {% csrf_token %}
+                    <input type="text" name="cc" required>
+                    <button type="submit" class="btn btn-primary">Reply</button>
+                </form>
+                {% for cc in ccl %}
+                <b>{{ cc.surfer_detail.fullname }}</b><br/>
+                {{ cc.comment }}<br/>
+                <a href="{% url 'sreport' cc.id 'cc' %}">Report</a><br/>
+                {% endfor %}
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

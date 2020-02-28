@@ -1,0 +1,30 @@
+{% extends 'editor/base.html' %}
+
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col">
+            <a href="{% url 'unews' %}"><button class="btn btn-primary">UNPUBLISHED</button></a>
+        </div>
+        <div class="col">
+            <a href="{% url 'pnews' %}"><button class="btn btn-seconday">PUBLISHED</button></a>
+        </div>
+    </div>
+    {% for p in nl %}
+        <a href="{% url 'endetail' p.id %}"><h3>{{ p.title }}</h3></a><br/>
+        <div class="row">
+            <div class="col">
+                {{ p.epub_date }}<br/>
+            </div>
+            <div class="col text-right">
+                <a href="{% url 'updatenews' p.id %}">Update</a><br/>
+                <a href="{% url 'deletenews' p.id %}"><button class="btn btn-danger">Delete</button></a>
+            </div>
+        </div>
+        <p>{{ p.summary }}</p><br/>
+    <hr>
+    {% endfor %}
+</div>
+
+{% endblock %}

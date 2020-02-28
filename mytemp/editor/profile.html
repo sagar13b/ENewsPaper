@@ -1,0 +1,23 @@
+{% extends 'editor/base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row text-center pt-2">
+        <div class="col">
+            <h2>{{ user.fullname }}</h2><br/>
+            <img src="{{ ep.profile_pic.url }}" height="100"><br/><br/>
+            <a href="{% url 'eupdatep' %}"><button class="btn btn-primary">Update Profile</button></a>
+        </div>
+    </div>
+    First Name : {{ user.fname }}<br/>
+    {% if user.mname != '' %}
+    Middle Name : {{ user.mname }}<br/>
+    {% endif %}
+    Last Name : {{ user.lname }}<br/>
+    Phone Number : {{ ep.phone_no }}<br/>
+    Email Address : {{ user.email }}<br/>
+    Address : {{ ep.address }}
+</div>
+
+{% endblock %}

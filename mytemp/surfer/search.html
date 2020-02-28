@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            <h3>SEARCH RESULT</h3>
+            {{ d }}
+        </div>
+    </div>
+    <b>Advance Search</b><br/>
+    <form method="POST" action="{% url 'sasearch' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="t">Title</label>
+                    <input type="text" id="t" class="form-control" name="t" value="{{ d }}">
+                </div>
+                <div class="col">
+                    <label for="c">Category</label>
+                    <select name="cat" class="form-control" id="c">
+                        <option value="All">ALL</option>
+                        <option value="Politics">POLITICS</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Business">Business</option>
+                        <option value="Sports">Sports</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="p">Published Date</label>
+                    <input type="date" id="p" name="dat" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="e">Editor</label>
+                    <select name="edi" class="form-control" id="e">
+                        <option value="None">None</option>
+                        {% for e in el %}
+                        <option value="{{ e.id }}">{{ e.fullname }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <b>{{ l }} News Found ... </b>
+    <hr>
+    {% for n in nl %}
+    <div class="row">
+        <a href="{% url 'sndetail' n.id %}"><b>{{ n.title }}</b></a><br/>
+        Editor : {{ n.editor_detail.fullname }}<br/>
+        {{ n.summary }}
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

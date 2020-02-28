@@ -1,0 +1,31 @@
+{% extends 'publisher/base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            <h1>Report Statement</h1>
+        </div>
+    </div>
+    <hr>
+    {% for rc in rcl %}
+    <div class="row">
+        <div class="col-8">
+            {% if rc.status %}
+            {{ rc.surfer_detail.fullname }} reported {{ rc.ncom.comment }}
+            {% else %}
+            {{ rc.surfer_detail.fullname }} reported {{ rc.ccom.comment }}
+            {% endif %}
+        </div>
+        <div class="col">
+            <a href="{% url 'adreport' rc.id %}"><button class="btn btn-danger">Delete Comment</button></a>
+            <a href="{% url 'aireport' rc.id %}"><button class="btn btn-primary">Ignore Report</button></a>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

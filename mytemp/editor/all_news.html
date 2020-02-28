@@ -1,0 +1,30 @@
+{% extends 'editor/base.html' %}
+
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row text-center pt-2">
+        <div class="col">
+            <h1>ALL NEWS</h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-3">
+            {% for e in el %}
+            <a href="{% url 'allnews' e.id %}">{{ e.fullname }}</a>
+            <hr>
+            {% endfor %}
+        </div>
+        <div class="col">
+            {% for n in nl %}
+            <a href="{% url 'endetail' n.id %}"><h3>{{ n.title }}</h3></a><br/>
+            Editor : {{ n.epub_date }}   Publisher : {{ n.ppub_date }}<br/>
+            {{ n.summary }}
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

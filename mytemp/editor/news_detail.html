@@ -1,0 +1,38 @@
+{% extends 'editor/base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row pt-2 text-center">
+        <div class="col">
+            <h2>{{ n.title }}</h2>
+            {% if n.image.url is not None %}
+            <img src="{{ n.image.url }}" height="50"><br/>
+            Image Source : {{ n.img_source }}
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            Editor : {{ n.epub_date }}
+            {% if n.ppub_date is not None %}
+            <br/>
+            Publisher : {{ n.ppub_date }}
+            {% endif %}
+        </div>
+        {% if n.pub_status == False and n.editor_detail == user %}
+        <div class="col text-right">
+            <a href="{% url 'updatenews' n.id %}">Update Post</a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row text-justify">
+        <div class="col">
+            {{ n.body }}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

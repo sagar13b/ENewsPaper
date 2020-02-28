@@ -1,0 +1,69 @@
+{% extends 'publisher/base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            <h1>ADMIN DASHBOARD</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <h3>Editor Activity</h3>
+            <table class="table">
+                <tr>
+                    <th>Editor Name</th>
+                    <th>News Count</th>
+                    <th>Popularity</th>
+                </tr>
+                {% for e,count,pop in data %}
+                <tr>
+                    <th><a href="{% url 'aedetail' e.id %}">{{ e.fullname }}</a></th>
+                    <th>{{ count }}</th>
+                    <th>{{ pop }}</th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-6">
+            <h3>Today's Top News</h3>
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <th>Like Number</th>
+                    <th>View Number</th>
+                </tr>
+                {% for n in nl %}
+                <tr>
+                    <th><a href="{% url 'adetnews' n.id %}">{{ n.title }}</a></th>
+                    <th>{{ n.like_no }}</th>
+                    <th>{{ n.view_no }}</th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-6 ml-auto mr-auto">
+            <h3>Top News</h3>
+            <table class="table">
+                <tr>
+                    <th>Title</th>
+                    <th>Like Number</th>
+                    <th>View Number</th>
+                </tr>
+                {% for n in anl %}
+                <tr>
+                    <th><a href="{% url 'adetnews' n.id %}">{{ n.title }}</a></th>
+                    <th>{{ n.like_no }}</th>
+                    <th>{{ n.view_no }}</th>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

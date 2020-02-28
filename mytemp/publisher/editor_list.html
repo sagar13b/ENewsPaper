@@ -1,0 +1,40 @@
+{% extends 'publisher/base.html' %}
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row pt-2 text-center">
+        <div class="col">
+            <h1>EDITOR DETAIL</h1>
+        </div>
+    </div>
+    <hr>
+    <table class="table">
+        <tr>
+            <td>Name</td>
+            <td>Address</td>
+            <td>Phone Number</td>
+            <td>Email Address</td>
+            <td></td>
+        </tr>
+        {% for e, ep in data %}
+        <tr>
+            <td><a href="{% url 'aedetail' e.id %}">{{ e.fullname }}</a></td>
+            <td>{{ ep.address }}</td>
+            <td>{{ ep.phone_no }}</td>
+            <td>{{ e.email }}</td>
+            <td>
+                <a href="{% url 'aeremove' e.id %}"><button class="btn btn-danger">Remove</button></a>
+                <a href="{% url 'aenews' e.id %}"><button class="btn btn-primary">News</button></a>
+                {% if e.active %}
+                <a href="{% url 'aevalidate' e.id %}"><button class="btn btn-primary">Deactivate</button></a>
+                {% else %}
+                <a href="{% url 'aevalidate' e.id %}"><button class="btn btn-primary">Activate</button></a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

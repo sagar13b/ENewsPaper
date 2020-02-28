@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row text-center pt-2">
+        <div class="col">
+            <h2>{{ e.fullname }}</h2><br/>
+            <img src="{{ ep.profile_pic.url }}" height="100"><br/>
+            Followers : {{ ep.no_followers }}<br/><br/>
+            <a href="{% url 'sfeditor' e.id %}"><button class="btn btn-primary">{% if con %}Follow{% else %}Unfollow{% endif %}</button></a>
+        </div>
+    </div>
+    First Name : {{ e.fname }}<br/>
+    {% if e.mname != '' %}
+    Middle Name : {{ e.mname }}<br/>
+    {% endif %}
+    Last Name : {{ e.lname }}<br/>
+    Phone Number : {{ ep.phone_no }}<br/>
+    Email Address : {{ e.email }}<br/>
+    Address : {{ ep.address }}
+</div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'publisher/base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row text-center pt-2">
+        <div class="col">
+            <h2>{{ e.fullname }}</h2><br/>
+            <img src="{{ ep.profile_pic.url }}" height="100"><br/><br/>
+            <a href="{% url 'aenews' e.id %}"><button class="btn btn-primary">NEWS</button></a>
+            <a href="{% url 'aeremove' e.id %}"><button class="btn btn-danger">REMOVE</button></a>
+        </div>
+    </div>
+    First Name : {{ e.fname }}<br/>
+    {% if e.mname != '' %}
+    Middle Name : {{ e.mname }}<br/>
+    {% endif %}
+    Last Name : {{ e.lname }}<br/>
+    Phone Number : {{ ep.phone_no }}<br/>
+    Email Address : {{ e.email }}<br/>
+    Address : {{ ep.address }}
+</div>
+
+{% endblock %}

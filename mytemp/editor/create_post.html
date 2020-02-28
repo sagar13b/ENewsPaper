@@ -1,0 +1,54 @@
+{% extends 'editor/base.html' %}
+
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col">
+            <h1>CREATE NEW NEWSPOST</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 ml-auto mr-auto border border-primary">
+            <form method="POST" action="{% url 'cpost' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="t">News Title</label>
+                    <input type="text" id="t" name="title" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="cat">News Category</label>
+                    <select id="cat" name="category" class="form-control" required>
+                        <option value="Business">Business</option>
+                        <option value="Politics">Politics</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Sports">Sports</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="c">News Content</label>
+                    <textarea id="c" name="content" class="form-control" rows="7" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="sum">News Summary</label>
+                    <textarea id="sum" name="summary" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="img">Image</label>
+                            <input type="file" id="img" name="image" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="imgs">Image Source</label>
+                            <input type="text" id="imgs" name="image_src" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

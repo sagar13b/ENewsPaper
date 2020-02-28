@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col">
+            <h1>DEERWALK TRAINING NEWS</h1>
+            <b>My Subscribtion<br/>{{ d }}</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <b>FOLLOWED EDITORS</b><hr>
+            {% for e in el %}
+            <a href="{% url 'sesuscriben' e.id %}">{{ e.fullname }}</a><hr>
+            {% endfor %}
+        </div>
+        <div class="col">
+            {% for n in nl %}
+            <a href="{% url 'sndetail' n.id %}"><b>{{ n.title }}</b></a>
+            <div class="row">
+                {% if n.image.url is not None %}
+                <div class="col-3">
+                    <img src="{{ n.image.url }}" height="50">
+                </div>
+                {% endif %}
+                <div class="col">
+                    Editor : {{ n.editor_detail.fullname }}<br/>
+                    <p>{{ n.summary }}</p>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

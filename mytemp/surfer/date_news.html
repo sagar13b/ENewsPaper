@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col">
+            <h1>DEERWALK TRAINING NEWS</h1>
+            <b>{{ d }}</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <a href="{% url 'sdat' d %}">All News</a><hr>
+            <a href="{% url 'scatdat' d 'Politics' %}">Politics</a><hr>
+            <a href="{% url 'scatdat' d 'Entertainment' %}">Entertainment</a><hr>
+            <a href="{% url 'scatdat' d 'Sports' %}">Sports</a><hr>
+            <a href="{% url 'scatdat' d 'Business' %}">Business</a>
+        </div>
+        <div class="col">
+            {% for cat, nl in data %}
+            <h3>{{ cat }}</h3>
+            <hr>
+            <div class="row text-justity">
+                {% for n in nl %}
+                <div class="col-3">
+                    <a href="{% url 'sndetail' n.id %}"><b>{{ n.title }}</b></a><br/>
+                    {% if n.image.url is not None %}
+                    <img src="{{ n.image.url }}" height="50"><br/>
+                    {% endif %}
+                    Editor : <a href="{% url 'seprofile' n.editor_detail.id %}">{{ n.editor_detail.fullname }}</a><br/>
+                    {{ n.summary }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-3">
+            <a href="{% url 'shome' %}">Today</a><hr>
+            <form method="POST" action="{% url 'shome' %}">
+                {% csrf_token %}
+                <input type="date" name="dat" class="form-control" required>
+                <button type="submit" class="btn btn-primary">Search News</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

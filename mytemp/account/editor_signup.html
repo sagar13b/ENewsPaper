@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row text-center pt-2">
+        <div class="col">
+            <h1>EDITOR REGISTRATION PAGE</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 ml-auto mr-auto border border-primary">
+            <strong>{{ error }}</strong>
+            <form method="POST" action="{% url 'esup' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="fn">First Name</label>
+                            <input type="text" id="fn" name="fname" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <label for="mn">Middle Name</label>
+                            <input type="text" id="mn" name="mname" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="ln">Last Name</label>
+                            <input type="text" id="ln" name="lname" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="em">Email Address</label>
+                    <input type="email" id="em" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label id="a">Permanent Address</label>
+                    <textarea id="a" name="address" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="p">Phone Number</label>
+                    <input type="number" id="p" name="phone_no" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="i">Profile Picture</label>
+                    <input type="file" id="i" name="ppic" class="form-control">
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="p1">Password</label>
+                            <input type="password" id="p1" name="pass1" class="form-control" required>
+                        </div>
+                        <div class="col">
+                            <label for="p2">Conform Password</label>
+                            <input type="password" id="p2" name="pass2" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">SIGNUP</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

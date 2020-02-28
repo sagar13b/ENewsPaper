@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col">
+            <h1>NOTIFICATIONS</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 border border-primary">
+            {% for n in nl %}
+            <div class="row alert alert-primary">
+                <h4><a href="{% url 'seprofile' n.editor_detail.id %}">{{ n.editor_detail.fullname }}</a> posted <a href="{% url 'sndetail' n.id %}">{{ n.title }}</a></h4>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

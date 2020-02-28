@@ -1,0 +1,49 @@
+{% extends 'publisher/base.html' %}
+
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row text-center pt-2">
+        <div class="col">
+            <h1>UNPUBLISHED NEWS</h1>
+            {{ d }}
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-2">
+            <a href="{% url 'aunpubdate' d %}">All News</a><hr>
+            <a href="{% url 'aunpubdatecat' d 'Politics' %}">Politics</a><hr>
+            <a href="{% url 'aunpubdatecat' d 'Entertainment' %}">Entertainment</a><hr>
+            <a href="{% url 'aunpubdatecat' d 'Sports' %}">Sports</a><hr>
+            <a href="{% url 'aunpubdatecat' d 'Business' %}">Business</a>
+        </div>
+        <div class="col">
+
+            {% for n in nl %}
+            <a href="{% url 'adetnews' n.id %}"><h3>{{ n.title }}</h3></a><br/>
+            <div class="row">
+                <div class="col-9">
+                    Editor : {{ n.editor_detail.fullname }}<br/>
+                    {{ n.summary }}
+                </div>
+                <div class="col">
+                    <a href="{% url 'apubnews' n.id %}"><button class="btn btn-primary">Publish</button></a>
+                    <a href="{% url 'adelnews' n.id %}"><button class="btn btn-danger">Delete</button></a>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+        <div class="col-3">
+            <a href="{% url 'aunpub' %}">Today</a><hr/>
+            <form method="POST" action="{% url 'aunpub' %}">
+                {% csrf_token %}
+                <input type="date" name="dat" placeholder="Search By Date" required>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

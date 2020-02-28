@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col">
+            <h1>DEERWALK TRAINING NEWS</h1>
+            <b>{{ d }}</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <a href="{% url 'shome' %}">All News</a><hr>
+            <a href="{% url 'scat' 'Politics' %}">Politics</a><hr>
+            <a href="{% url 'scat' 'Entertainment' %}">Entertainment</a><hr>
+            <a href="{% url 'scat' 'Sports' %}">Sports</a><hr>
+            <a href="{% url 'scat' 'Business' %}">Business</a>
+        </div>
+        <div class="col">
+            {% for cat, nl in data %}
+            <h3>{{ cat }}</h3>
+            <hr>
+            <div class="row text-justity">
+                {% for n in nl %}
+                <div class="col-3">
+                    <a href="{% url 'sndetail' n.id %}"><b>{{ n.title }}</b></a><br/>
+                    {% if n.image.url is not None %}
+                    <img src="{{ n.image.url }}" height="50"><br/>
+                    {% endif %}
+                    Editor : <a href="{% url 'seprofile' n.editor_detail.id %}">{{ n.editor_detail.fullname }}</a><br/>
+                    {{ n.summary }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-3 text-justify">
+            <a href="{% url 'shome' %}">Today</a><hr>
+            <form method="POST" action="{% url 'shome' %}">
+                {% csrf_token %}
+                <input type="date" name="dat" class="form-control" required>
+                <button type="submit" class="btn btn-primary">Search News</button>
+            </form>
+            <hr>
+            {% for n in tn %}
+            <a href="{% url 'sndetail' n.id %}"><b>{{ n.title }}</b></a><br/>
+            {% if n.image.url is not None %}
+            <img src="{{ n.image.url }}" height="50"><br/>
+            {% endif %}
+            {{ n.summary }}
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+  <!-- Your share button code -->
+  <div class="fb-share-button"
+    data-href="{{ request.build_absolute_uri }}"
+    data-layout="button_count">
+  </div>
+{% endblock %}

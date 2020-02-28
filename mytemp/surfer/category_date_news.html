@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col">
+            <h1>DEERWALK TRAINING NEWS</h1>
+            <h3>{{ cat }}</h3>
+            <b>{{ d }}</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">
+            <a href="{% url 'sdat' d %}">All News</a><hr>
+            <a href="{% url 'scatdat' d 'Politics' %}">Politics</a><hr>
+            <a href="{% url 'scatdat' d 'Entertainment' %}">Entertainment</a><hr>
+            <a href="{% url 'scatdat' d 'Sports' %}">Sports</a><hr>
+            <a href="{% url 'scatdat' d 'Business' %}">Business</a>
+        </div>
+        <div class="col">
+            {% for n in nl %}
+            <a href="{% url 'sndetail' n.id %}">{{ n.title }}</a><hr>
+            <div class="row">
+                <div class="col-2">
+                    {% if n.image.url is not None %}
+                    <img src="{{ n.image.url }}" height="50">
+                    {% endif %}
+                </div>
+                <div class="col text-justify">
+                    Published By : <a href="{% url 'seprofile' n.editor_detail.id %}">{{ n.editor_detail.fullname }}</a><br/>
+                    <p>{{ n.summary }}</p>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+        <div class="col-3">
+            <a href="{% url 'shome' %}">Today</a><hr>
+            <form method="POST" action="{% url 'shome' %}">
+                {% csrf_token %}
+                <input type="date" name="dat" class="form-control" required>
+                <button type="submit" class="btn btn-primary">Search News</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

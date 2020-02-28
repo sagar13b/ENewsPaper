@@ -1,0 +1,30 @@
+{% extends 'publisher/base.html' %}
+
+{% block 'container' %}
+
+<div class="container-fluid">
+    <div class="row text-center pt-2">
+        <div class="col">
+            <h1>{{ e.fullname }} NEWS</h1>
+        </div>
+    </div>
+    <br/>
+    {% for n in nl %}
+    <a href="{% url 'adetnews' n.id %}"><h3>{{ n.title }}</h3></a><br/>
+    <div class="row">
+        <div class="col-9">
+            {{ n.summary }}
+        </div>
+        <div class="col">
+            {% if n.pub_status %}
+            <strong>Published</strong>
+            {% else %}
+            <strong>Not Published</strong>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+
+{% endblock %}
